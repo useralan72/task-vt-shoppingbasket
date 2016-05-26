@@ -2,6 +2,7 @@ package com.valtech;
 
 import com.valtech.Exception.ItemException;
 import com.valtech.model.Item;
+import com.valtech.model.Offer;
 
 import java.math.BigDecimal;
 
@@ -10,8 +11,8 @@ import java.math.BigDecimal;
  */
 public class ItemFactory {
 
-    static Item APPLE = new Item("Apple", new BigDecimal("0.60"));
-    static Item ORANGE = new Item("Orange", new BigDecimal("0.25"));
+    static Item APPLE = new Item("Apple", new BigDecimal("0.60"), Offer.BOGOF);
+    static Item ORANGE = new Item("Orange", new BigDecimal("0.25"), Offer.THREEFORTWO);
 
     public static Item getProduct(String product) {
         if ("Apple".equals(product)) {

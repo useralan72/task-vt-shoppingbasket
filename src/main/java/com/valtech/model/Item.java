@@ -12,8 +12,9 @@ public final class Item {
 
     private String name;
     private BigDecimal price;
+    private Offer offer;
 
-    public Item(String name, BigDecimal price) {
+    public Item(String name, BigDecimal price, Offer offer) {
         //name validation
         if (StringUtils.isEmpty(name)) {
             throw new ItemException("name cannot be empty");
@@ -24,6 +25,7 @@ public final class Item {
         }
         this.name = name;
         this.price = price;
+        this.offer = offer;
     }
 
     public String getName() {
@@ -34,29 +36,8 @@ public final class Item {
         return price;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Item other = (Item) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+    public Offer getOffer() {
+        return offer;
     }
 
     @Override
@@ -64,4 +45,24 @@ public final class Item {
         return "Item [name=" + name + ", price=" + price + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Item item = (Item) o;
+
+        if (!name.equals(item.name)) return false;
+        if (!price.equals(item.price)) return false;
+        return offer == item.offer;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + price.hashCode();
+        result = 31 * result + offer.hashCode();
+        return result;
+    }
 }
