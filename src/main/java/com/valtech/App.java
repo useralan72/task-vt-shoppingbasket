@@ -18,12 +18,13 @@ public class App {
 		}
 
 		BasketService basketService = new BasketServiceImpl();
-		//first convert the input
-		for (String arg: args) {
-			basketService.addItem(ItemFactory.getProduct(arg));
-		}
-		BigDecimal total = basketService.getTotalCost();
+		//first get total not including offers
+		BigDecimal total = basketService.getTotalCost(Arrays.asList(args));
 		LOGGER.debug("Total is " + total);
+
+		//first get total not including offers
+		BigDecimal totalWithOffers = basketService.getTotalCostWithOffers(Arrays.asList(args));
+		LOGGER.debug("Total with offers is " + totalWithOffers);
 	}
 
 }

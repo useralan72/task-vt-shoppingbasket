@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -25,27 +27,25 @@ public class BasketServiceImplTest {
 	}
 
 	@Test
-	public void shouldAddAnItemToTheBasket() {
+	public void shouldGiveTotalGivenStringListOfItems() {
 		//WHEN
-		basketService.addItem(apple);
+		List<String> basketList = Arrays.asList("Apple", "Apple", "Apple", "Orange");
 
-		//THEN
-		assertTrue(basketService.getAllItems().containsKey(apple));
-		assertTrue(basketService.getAllItems().size() == 1);
-	}
-	
-	@Test
-	public void shouldGiveTotalGivenListOfItems() {
-		//WHEN
-		basketService.addItem(apple);
-		basketService.addItem(apple);
-		basketService.addItem(apple);
-		basketService.addItem(orange);
-				
-		BigDecimal result = basketService.getTotalCost();
+		BigDecimal result = basketService.getTotalCost(basketList);
 		Assert.assertNotNull(result);
 		Assert.assertEquals(new BigDecimal("2.05"), result);
-		
+
+	}
+
+	@Test
+	public void shouldGiveTotalGivenStringListCountOfItems() {
+		//WHEN - apples are bogof so should be 2 * apples + 2 * oranges
+		List<String> basketList = Arrays.asList("Apple", "Apple", "Apple", "Orange", "Orange", "Orange");
+
+		BigDecimal result = basketService.getTotalCostWithOffers(basketList);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(new BigDecimal("1.70"), result);
+
 	}
 
 }

@@ -3,6 +3,7 @@ package com.valtech.service;
 import com.valtech.model.Item;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,20 +12,16 @@ import java.util.Map;
 public interface BasketService {
 
     /**
-     * Add an Item to the basket
-     * @param item
-     */
-    void addItem(Item item);
-
-    /**
-     * Get the total cost of all Items in the basket
+     * Get the total cost for a string array of items
+     * @param items
      * @return
      */
-    BigDecimal getTotalCost();
+    BigDecimal getTotalCost(List<String> items);
 
     /**
-     * Get all the items and count
+     * Take into account offers
+     * @param items
      * @return
      */
-    Map<Item, Integer> getAllItems();
+    BigDecimal getTotalCostWithOffers(List<String> items);
 }
